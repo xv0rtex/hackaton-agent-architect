@@ -68,3 +68,12 @@ A professional-grade dashboard allows for real-time monitoring of agent workflow
 In the modern development landscape, competitive advantage is no longer found solely in the ability to write code, but in the **capacity to orchestrate intelligence**. Agent Architect shifts the paradigm from individual labor to the strategic management of autonomous systems.
 
 > "The future of engineering is not building alone—it is leading the system that builds."
+
+
+## 📄 License
+
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
+
+You are free to use, modify, and contribute to this project under the terms of the license.
+
+If you deploy this project as a service (e.g., web platform or SaaS), you must make the source code available to users.
