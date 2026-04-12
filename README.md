@@ -1,8 +1,8 @@
-# 🧠 Agent Architect
+# Agent Architect
 
 > Build your own AI team. From idea to execution in minutes.
 
-## 🚀 Overview
+## Overview
 
 **Agent Architect** is a platform that allows you to create fully customized AI agents tailored to your project — even if you don’t know where to start.
 
@@ -10,7 +10,7 @@ Instead of building everything yourself, you act as the **project manager**, whi
 
 ---
 
-## 🧩 How It Works
+## How It Works
 
 ### 1. Guided Setup (Smart Assistant)
 
@@ -52,7 +52,7 @@ You can interact with agents as a team.
 
 Think of it like:
 
-> 🏢 Being a manager in a company with a team chat full of specialists
+>  Being a manager in a company with a team chat full of specialists
 
 You can:
 
@@ -93,7 +93,7 @@ Export your agents easily using **MCP (Model Context Protocol)**.
 
 ---
 
-## 🛠️ Use Cases
+## Use Cases
 
 * Building full-stack applications
 * Rapid prototyping
@@ -103,17 +103,17 @@ Export your agents easily using **MCP (Model Context Protocol)**.
 
 ---
 
-## 💡 Philosophy
+## Philosophy
 
 > You don’t build alone anymore.
 
 This project shifts the paradigm from:
 
-* ❌ "I need to know everything"
+* "I need to know everything"
 
 To:
 
-* ✅ "I coordinate a team that knows everything"
+* "I coordinate a team that knows everything"
 
 
 ## 🧠 Final Thought
