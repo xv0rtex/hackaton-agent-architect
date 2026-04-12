@@ -1,6 +1,19 @@
 # Agent Architect | AI Orchestration Framework
+ **Transforming the development lifecycle from manual execution to strategic orchestration.**
+ >Project developed during the BEST Hackathon at the Universidad Carlos III de Madrid.
+## 👥 Contributors
+| Name | GitHub |
+|------|--------|
+| Diego Soria | [xv0rtex](https://github.com/xv0rtex) |
+| Andrés Alonso | [gig4ndr3s](https://github.com/gig4ndr3s) |
+| David Gutiérrez| [davidgutierrezovi18](https://github.com/davidgutierrezovi18) |
+| Jorge Montoto| [Mntt05](https://github.com/Mntt05) |
+| Saúl Torres| [saultj](https://github.com/saultj) |
+| Dan Narita | [Ten1O0](https://github.com/Ten1O0) |
 
-> **Transforming the development lifecycle from manual execution to strategic orchestration.**
+## 🎥 Demo
+
+[![Ver demo](https://img.youtube.com/vi/T-LNDwBlKPQ/maxresdefault.jpg)](https://youtu.be/T-LNDwBlKPQ)
 
 ## 📑 Executive Summary
 
