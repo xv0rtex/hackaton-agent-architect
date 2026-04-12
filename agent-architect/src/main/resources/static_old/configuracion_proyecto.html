@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neural Orchestration · Project Configurator</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container": "#0f1930",
+          "surface-container-high": "#141f38",
+          "surface-container-low": "#091328",
+          "surface-variant": "#192540",
+          "outline-variant": "#40485d",
+          "outline": "#6d758c",
+          "on-surface": "#dee5ff",
+          "on-surface-variant": "#a3aac4",
+          "primary": "#3adffa",
+          "primary-container": "#00cbe6",
+          "on-primary-container": "#003d46",
+          "secondary": "#c180ff",
+          "tertiary": "#b1fe4d",
+          "background": "#060e20"
+        },
+        fontFamily: { headline: ["Space Grotesk"], body: ["Inter"] }
+      }
+    }
+  };
+</script>
+<style>
+  body { background:#060e20; color:#dee5ff; font-family: Inter, sans-serif; }
+  .chat-scroll::-webkit-scrollbar { width: 6px; }
+  .chat-scroll::-webkit-scrollbar-thumb { background:#1f2b49; border-radius:3px; }
+  .bubble-user { background: linear-gradient(135deg, rgba(58,223,250,0.18), rgba(0,203,230,0.08)); border:1px solid rgba(58,223,250,0.3); }
+  .bubble-ai { background: rgba(25,37,64,0.6); border:1px solid rgba(64,72,93,0.4); }
+  .typing span { display:inline-block; width:6px; height:6px; border-radius:50%; background:#3adffa; margin:0 2px; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2){ animation-delay:.2s; }
+  .typing span:nth-child(3){ animation-delay:.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+  .role-backend  { --role-color:#3adffa; }
+  .role-frontend { --role-color:#c180ff; }
+  .role-security { --role-color:#ff716c; }
+  .role-database { --role-color:#b1fe4d; }
+  .role-devops   { --role-color:#ffb74d; }
+  .role-qa       { --role-color:#64ffda; }
+  .role-ux       { --role-color:#ff80ab; }
+</style>
+</head>
+<body class="font-body bg-background text-on-background min-h-screen">
+
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 bg-[#060e20]/80 backdrop-blur-xl shadow-[0_0_40px_-15px_rgba(58,223,250,0.15)]">
+  <div class="flex items-center gap-8">
+    <a href="index.html" class="text-xl font-bold tracking-widest text-cyan-400 font-['Space_Grotesk'] uppercase">Neural Orchestration</a>
+    <nav class="hidden md:flex items-center gap-6 font-['Space_Grotesk'] tracking-tight text-sm">
+      <a class="text-slate-400 hover:text-white transition-colors" href="index.html">Home</a>
+      <a class="text-cyan-400 border-b-2 border-cyan-400 pb-1" href="configuracion_proyecto.html">Configurator</a>
+      <a class="text-slate-400 hover:text-white transition-colors" href="pagina_orquestacion.html">Agents</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-3">
+    <span id="sessionBadge" class="text-[10px] uppercase tracking-widest text-on-surface-variant">Session · --</span>
+    <button id="resetBtn" class="px-3 py-1.5 text-xs border border-outline-variant/30 rounded-md hover:bg-white/5 transition-colors uppercase tracking-widest">Reset</button>
+  </div>
+</header>
+
+<main class="pt-24 px-6 lg:px-24 pb-12 min-h-screen">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-8">
+      <span class="px-3 py-1 bg-tertiary/10 border border-tertiary/30 text-tertiary text-[10px] uppercase tracking-widest rounded-full font-bold">Step 01 · Intent & Team</span>
+      <h1 class="font-['Space_Grotesk'] text-4xl md:text-5xl font-bold tracking-tight mt-4">Project Configurator</h1>
+      <p class="text-on-surface-variant mt-2 max-w-2xl">Conversa con Neural Architect. Definirá contigo la idea, el stack (backend, frontend, base de datos) y los agentes especializados que compondrán tu equipo sintético.</p>
+    </div>
+
+    <div id="statusBanner" class="hidden mb-6 p-4 rounded-xl border"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- CHAT -->
+      <section class="lg:col-span-2 bg-surface-container-high border border-outline-variant/20 rounded-xl flex flex-col h-[72vh]">
+        <div id="messages" class="chat-scroll flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+        <form id="chatForm" class="p-4 border-t border-outline-variant/20 flex gap-3">
+          <input id="chatInput" autocomplete="off"
+                 class="flex-1 bg-surface-container-low border border-outline-variant/30 focus:border-primary focus:ring-0 rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant/60"
+                 placeholder="Describe tu idea o responde al arquitecto..." />
+          <button id="sendBtn" type="submit"
+                  class="px-6 py-3 rounded-lg bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-bold shadow-[0_0_30px_-5px_rgba(58,223,250,0.4)] active:scale-95 transition-all">
+            <span class="material-symbols-outlined align-middle">send</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- SIDE: CONFIG + AGENTS -->
+      <aside class="space-y-6">
+
+        <div class="bg-surface-container border border-outline-variant/20 rounded-xl p-6">
+          <h2 class="text-[10px] font-medium tracking-widest text-primary uppercase mb-4">Stack</h2>
+          <div class="space-y-3">
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-on-surface-variant">Backend</div>
+              <div id="cfgBackend" class="font-['Space_Grotesk'] text-base text-on-surface mt-1">—</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-on-surface-variant">Frontend</div>
+              <div id="cfgFrontend" class="font-['Space_Grotesk'] text-base text-on-surface mt-1">—</div>
+            </div>
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-on-surface-variant">Database</div>
+              <div id="cfgDatabase" class="font-['Space_Grotesk'] text-base text-on-surface mt-1">—</div>
+            </div>
+          </div>
+          <div id="cfgStatus" class="mt-4 text-[10px] uppercase tracking-widest text-on-surface-variant">Esperando respuestas...</div>
+          <button id="confirmBtn" disabled
+                  class="mt-4 w-full px-4 py-2 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary font-bold text-xs uppercase tracking-widest disabled:opacity-40 disabled:cursor-not-allowed hover:bg-tertiary/30 transition-all">
+            Guardar en H2
+          </button>
+          <a href="pagina_orquestacion.html" id="goAgentsBtn" class="hidden mt-3 w-full block text-center px-4 py-2 rounded-lg bg-primary/10 border border-primary/40 text-primary font-bold text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
+            Ver Agentes →
+          </a>
+        </div>
+
+        <div class="bg-surface-container border border-outline-variant/20 rounded-xl p-6">
+          <h2 class="text-[10px] font-medium tracking-widest text-secondary uppercase mb-4">Equipo detectado</h2>
+          <div id="agentsList" class="space-y-3">
+            <div class="text-xs text-on-surface-variant italic">Aún no hay agentes definidos.</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<script>
+const messagesEl = document.getElementById("messages");
+const form = document.getElementById("chatForm");
+const input = document.getElementById("chatInput");
+const sendBtn = document.getElementById("sendBtn");
+const confirmBtn = document.getElementById("confirmBtn");
+const goAgentsBtn = document.getElementById("goAgentsBtn");
+const resetBtn = document.getElementById("resetBtn");
+const cfgBackend = document.getElementById("cfgBackend");
+const cfgFrontend = document.getElementById("cfgFrontend");
+const cfgDatabase = document.getElementById("cfgDatabase");
+const cfgStatus = document.getElementById("cfgStatus");
+const sessionBadge = document.getElementById("sessionBadge");
+const statusBanner = document.getElementById("statusBanner");
+const agentsList = document.getElementById("agentsList");
+
+let pendingConfig = null;
+
+const ROLE_ICON = {
+  backend: "database", frontend: "brush", security: "policy",
+  database: "storage", devops: "cloud_sync", qa: "bug_report", ux: "design_services"
+};
+
+function addMessage(role, text) {
+  const wrap = document.createElement("div");
+  wrap.className = "flex " + (role === "user" ? "justify-end" : "justify-start");
+  const bubble = document.createElement("div");
+  bubble.className = (role === "user" ? "bubble-user" : "bubble-ai") +
+    " max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap";
+  bubble.textContent = text;
+  wrap.appendChild(bubble);
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addTyping() {
+  const wrap = document.createElement("div");
+  wrap.className = "flex justify-start typing-wrap";
+  wrap.innerHTML = '<div class="bubble-ai rounded-xl px-4 py-3 typing"><span></span><span></span><span></span></div>';
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return wrap;
+}
+
+function showBanner(kind, text) {
+  statusBanner.classList.remove("hidden");
+  statusBanner.textContent = text;
+  statusBanner.className = "mb-6 p-4 rounded-xl border " +
+    (kind === "ok" ? "border-tertiary/40 bg-tertiary/5 text-tertiary" :
+     kind === "err" ? "border-red-500/40 bg-red-500/5 text-red-300" :
+                      "border-primary/40 bg-primary/5 text-primary");
+}
+
+function renderAgents(agents) {
+  if (!agents || agents.length === 0) {
+    agentsList.innerHTML = '<div class="text-xs text-on-surface-variant italic">Aún no hay agentes definidos.</div>';
+    return;
+  }
+  agentsList.innerHTML = agents.map(a => {
+    const role = (a.role || "backend").toLowerCase();
+    const icon = ROLE_ICON[role] || "smart_toy";
+    return `
+      <div class="role-${role} p-3 rounded-lg bg-surface-container-low border-l-2" style="border-color: var(--role-color);">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-lg" style="color: var(--role-color);">${icon}</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-['Space_Grotesk'] font-bold text-sm">${escapeHtml(a.name || role)}</span>
+              <span class="text-[9px] uppercase tracking-widest" style="color: var(--role-color);">${role}</span>
+            </div>
+            <div class="text-[11px] text-on-surface-variant mt-0.5">${escapeHtml(a.stack || "")}</div>
+            ${a.description ? `<div class="text-[11px] text-on-surface-variant/80 mt-1">${escapeHtml(a.description)}</div>` : ""}
+            ${a.personality ? `<div class="text-[11px] italic mt-1.5 pt-1.5 border-t border-outline-variant/20" style="color: var(--role-color);">"${escapeHtml(a.personality)}"</div>` : ""}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function updatePendingUI(cfg) {
+  if (!cfg) return;
+  pendingConfig = cfg;
+  cfgBackend.textContent = cfg.backend || "—";
+  cfgFrontend.textContent = cfg.frontend || "—";
+  cfgDatabase.textContent = cfg.database || "—";
+  cfgStatus.textContent = "Pendiente de confirmación";
+  confirmBtn.disabled = false;
+  renderAgents(cfg.agents || []);
+}
+
+function markSaved(cfg) {
+  cfgBackend.textContent = cfg.backend;
+  cfgFrontend.textContent = cfg.frontend;
+  cfgDatabase.textContent = cfg.database;
+  cfgStatus.textContent = "Guardado en H2 · id " + cfg.id;
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = "Guardado ✓";
+  goAgentsBtn.classList.remove("hidden");
+  renderAgents(cfg.agents || []);
+  showBanner("ok", "Configuración y equipo persistidos. Revisa la pestaña Agents para ver el equipo.");
+}
+
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+async function sendMessage(text) {
+  sendBtn.disabled = true;
+  const typing = addTyping();
+  try {
+    const res = await fetch("/api/chat/message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ message: text })
+    });
+    typing.remove();
+    if (!res.ok) {
+      addMessage("assistant", "⚠️ Error del servidor: " + (await res.text()));
+      return;
+    }
+    const data = await res.json();
+    addMessage("assistant", data.reply || "");
+    if (data.sessionId) sessionBadge.textContent = "Session · " + data.sessionId.substring(0, 8);
+    if (data.pendingConfig) updatePendingUI(data.pendingConfig);
+    if (data.saved) markSaved(data.saved);
+  } catch (e) {
+    typing.remove();
+    addMessage("assistant", "⚠️ " + e.message);
+  } finally {
+    sendBtn.disabled = false;
+    input.focus();
+  }
+}
+
+form.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage("user", text);
+  input.value = "";
+  sendMessage(text);
+});
+
+confirmBtn.addEventListener("click", async () => {
+  if (!pendingConfig) return;
+  confirmBtn.disabled = true;
+  try {
+    const res = await fetch("/api/chat/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(pendingConfig)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    markSaved(await res.json());
+  } catch (e) {
+    showBanner("err", "No se pudo guardar: " + e.message);
+    confirmBtn.disabled = false;
+  }
+});
+
+resetBtn.addEventListener("click", async () => {
+  await fetch("/api/chat/reset", { method: "POST", credentials: "include" });
+  messagesEl.innerHTML = "";
+  pendingConfig = null;
+  cfgBackend.textContent = "—";
+  cfgFrontend.textContent = "—";
+  cfgDatabase.textContent = "—";
+  cfgStatus.textContent = "Esperando respuestas...";
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = "Guardar en H2";
+  goAgentsBtn.classList.add("hidden");
+  renderAgents([]);
+  statusBanner.classList.add("hidden");
+  bootstrap();
+});
+
+async function loadExisting() {
+  try {
+    const res = await fetch("/api/chat/config", { credentials: "include" });
+    if (!res.ok) return;
+    const cfg = await res.json();
+    if (cfg && cfg.backend) {
+      cfgBackend.textContent = cfg.backend;
+      cfgFrontend.textContent = cfg.frontend;
+      cfgDatabase.textContent = cfg.database;
+      cfgStatus.textContent = "Configuración previa · id " + cfg.id;
+      renderAgents(cfg.agents || []);
+      if (cfg.agents && cfg.agents.length) goAgentsBtn.classList.remove("hidden");
+    }
+  } catch (_) {}
+}
+
+function bootstrap() {
+  addMessage("assistant",
+    "¡Hola! Soy Neural Architect 🚀. Voy a ayudarte a definir tu proyecto y el equipo de agentes que lo construirá. " +
+    "Para empezar, cuéntame en una frase qué quieres construir.");
+}
+
+loadExisting();
+bootstrap();
+</script>
+
+</body>
+</html>

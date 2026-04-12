@@ -1,0 +1,48 @@
+services:
+  # Servicio Backend (Spring Boot con Maven)
+  backend:
+    image: maven:3.9.5-eclipse-temurin-17
+    container_name: hackatin-backend
+    working_dir: /app
+    volumes:
+      # Montamos el código fuente local en el contenedor
+      - .:/app
+      # Cache para las dependencias de Maven y evitar descargas en cada reinicio
+      - maven-repo:/root/.m2
+    ports:
+      - "8080:8080"
+      - "5005:5005" # Puerto para debug
+    command: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+    networks:
+      - hackatin-net
+
+  # Servicio Frontend (Vite + React con Node)
+  frontend:
+    image: node:22-alpine
+    container_name: hackatin-frontend
+    working_dir: /app/frontend
+    volumes:
+      # Montamos el frontend para Hot-Reloading
+      - ./frontend:/app/frontend
+      # Evitamos sobrescribir node_modules del contenedor con los del host
+      - /app/frontend/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      # Vite.config.js usará esta variable para hacer el proxy al contenedor backend
+      - VITE_API_TARGET=http://backend:8080
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - backend
+    networks:
+      - hackatin-net
+
+networks:
+  hackatin-net:
+    driver: bridge
+
+volumes:
+  maven-repo:

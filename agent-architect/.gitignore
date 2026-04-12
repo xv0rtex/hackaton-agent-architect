@@ -1,0 +1,24 @@
+# Compiled class files
+/target/
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+
+# Databases
+*.db
+*.mv.db
+*.trace.db
+
+# Generated data files (like AI Agents)
+/data/
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+/data/
+/.env

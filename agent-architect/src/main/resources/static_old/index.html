@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neural Orchestration - Collaborative AI Teams</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#a4ef3f",
+                      "secondary": "#c180ff",
+                      "on-secondary-fixed-variant": "#7511c3",
+                      "on-tertiary-fixed-variant": "#416a00",
+                      "primary-container": "#00cbe6",
+                      "secondary-fixed-dim": "#dbb4ff",
+                      "surface-container": "#0f1930",
+                      "secondary-dim": "#9c48ea",
+                      "error": "#ff716c",
+                      "outline": "#6d758c",
+                      "outline-variant": "#40485d",
+                      "on-error": "#490006",
+                      "on-background": "#dee5ff",
+                      "on-tertiary": "#406800",
+                      "inverse-on-surface": "#4d556b",
+                      "inverse-surface": "#faf8ff",
+                      "on-secondary": "#33005b",
+                      "tertiary": "#e7ffc4",
+                      "on-surface-variant": "#a3aac4",
+                      "on-primary-fixed-variant": "#005561",
+                      "surface-container-high": "#141f38",
+                      "surface-container-lowest": "#000000",
+                      "on-secondary-container": "#e9cdff",
+                      "on-secondary-fixed": "#4f0089",
+                      "error-container": "#9f0519",
+                      "surface-dim": "#060e20",
+                      "on-primary-container": "#003d46",
+                      "on-tertiary-container": "#3a5f00",
+                      "error-dim": "#d7383b",
+                      "surface-variant": "#192540",
+                      "tertiary-dim": "#a4ef3f",
+                      "secondary-container": "#6f00be",
+                      "on-error-container": "#ffa8a3",
+                      "on-primary": "#004b56",
+                      "background": "#060e20",
+                      "surface": "#060e20",
+                      "surface-bright": "#1f2b49",
+                      "secondary-fixed": "#e5c6ff",
+                      "tertiary-fixed": "#b1fe4d",
+                      "tertiary-container": "#b1fe4d",
+                      "surface-tint": "#3adffa",
+                      "primary": "#3adffa",
+                      "primary-fixed-dim": "#1ad0eb",
+                      "primary-fixed": "#3adffa",
+                      "inverse-primary": "#006977",
+                      "surface-container-highest": "#192540",
+                      "primary-dim": "#1ad0eb",
+                      "on-surface": "#dee5ff",
+                      "on-primary-fixed": "#00363e",
+                      "on-tertiary-fixed": "#2d4b00",
+                      "surface-container-low": "#091328"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="page-index bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 bg-[#060e20]/80 backdrop-blur-xl no-line tonal-shift bg-slate-900/40 shadow-[0_0_40px_-15px_rgba(58,223,250,0.15)]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-widest text-cyan-400 font-['Space_Grotesk'] uppercase">Neural Orchestration</span>
+<nav class="hidden md:flex items-center gap-6 font-['Space_Grotesk'] tracking-tight">
+<a class="text-cyan-400 border-b-2 border-cyan-400 pb-1 transition-colors" href="index.html">Home</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="configuracion_proyecto.html">Configurator</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="pagina_orquestacion.html">Agents</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-outline-variant/15">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-on-surface placeholder:text-slate-500" placeholder="Search orchestration..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-slate-400 hover:bg-white/5 p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-slate-400 hover:bg-white/5 p-2 rounded-full transition-all">settings</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-5 py-2 font-headline font-bold rounded-md active:scale-95 duration-200">Deploy</button>
+</div>
+</div>
+</header>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center px-6 lg:px-24 overflow-hidden">
+<div class="absolute top-0 right-0 w-full lg:w-2/3 h-full z-0 opacity-40">
+<div class="w-full h-full relative" data-alt="Futuristic 3D abstract shapes with glowing cyan and purple neon lines representing neural connectivity in deep space environment">
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10"></div>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB95ePxKdDXuC8v-oSTUXE1KfGme-eZ4PchKhjqpYqnnz8hTCx7IKBxt30xwaDzViASB9QLVOlzFeLt50dvdimY8EYhyTDcipmomdS2N6QBrvfn2HgkGw9qwsjvXazqQ6Ya2hbvnDseFnOlVS1mRNTMKfn8Kn8nVECKk8g2zhBltuM1rf7FeadOqLcc9IVkbH6lYzrpXMUpulYpKzqge75KqRKTlNKKhr9MPyavZMuDvSQV3wFoDw6qZK6PaQfTirxOFMLNcAa4H6t9"/>
+</div>
+</div>
+<div class="relative z-20 max-w-4xl">
+<span class="font-headline text-tertiary tracking-[0.3em] uppercase text-sm mb-4 block font-bold">The Synthetic Architect</span>
+<h1 class="font-headline text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter text-on-background mb-8">
+                    Collaborative <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary-container">AI Teams.</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-xl leading-relaxed mb-10 font-light">
+                    Direct a symphony of specialized agents. Build, deploy, and scale complex neural architectures with the precision of a master conductor.
+                </p>
+<div class="flex flex-wrap gap-4">
+<a href="configuracion_proyecto.html" class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-8 py-4 rounded-md font-headline font-bold text-lg shadow-[0_0_30px_-5px_rgba(58,223,250,0.4)] active:scale-95 transition-all inline-block">
+                        Start Building
+                    </a>
+<button class="px-8 py-4 rounded-md font-headline font-bold text-lg border border-outline-variant/30 hover:bg-white/5 transition-all text-on-background">
+                        View Documentation
+                    </button>
+</div>
+</div>
+</section>
+<!-- Stats / Proof Points -->
+<section class="px-6 lg:px-24 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-y border-outline-variant/10">
+<div>
+<div class="font-headline text-4xl font-bold text-primary mb-1">99.9%</div>
+<div class="text-xs uppercase tracking-widest text-on-surface-variant">Sync Accuracy</div>
+</div>
+<div>
+<div class="font-headline text-4xl font-bold text-secondary mb-1">500ms</div>
+<div class="text-xs uppercase tracking-widest text-on-surface-variant">Decision Latency</div>
+</div>
+<div>
+<div class="font-headline text-4xl font-bold text-tertiary mb-1">10k+</div>
+<div class="text-xs uppercase tracking-widest text-on-surface-variant">Active Agents</div>
+</div>
+<div>
+<div class="font-headline text-4xl font-bold text-white mb-1">2026</div>
+<div class="text-xs uppercase tracking-widest text-on-surface-variant">Next-Gen Spec</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Bento Grid) -->
+<section class="px-6 lg:px-24 py-24 bg-surface-container-low">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl font-bold mb-4 tracking-tight">The Orchestration Flow</h2>
+<div class="w-24 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Step 1 -->
+<div class="group p-8 rounded-xl bg-surface-container-high border border-outline-variant/10 hover:border-primary/40 transition-all duration-500 flex flex-col justify-between h-96 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-8xl">edit_note</span>
+</div>
+<div>
+<div class="text-primary font-headline text-5xl font-bold mb-4">01</div>
+<h3 class="text-2xl font-headline font-bold mb-2">Describe</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Define your goals in natural language. Our intent-engine parses complex requirements into executable agent manifests.
+                        </p>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3"></div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="group p-8 rounded-xl bg-surface-container-high border border-outline-variant/10 hover:border-secondary/40 transition-all duration-500 flex flex-col justify-between h-96 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-8xl">settings_input_component</span>
+</div>
+<div>
+<div class="text-secondary font-headline text-5xl font-bold mb-4">02</div>
+<h3 class="text-2xl font-headline font-bold mb-2">Select Tech</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Choose your stack. From legacy SQL to bleeding-edge vector databases, map your agents to their native environments.
+                        </p>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/3"></div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="group p-8 rounded-xl bg-surface-container-high border border-outline-variant/10 hover:border-tertiary/40 transition-all duration-500 flex flex-col justify-between h-96 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-8xl">hub</span>
+</div>
+<div>
+<div class="text-tertiary font-headline text-5xl font-bold mb-4">03</div>
+<h3 class="text-2xl font-headline font-bold mb-2">Orchestrate</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Watch the synergy unfold. Real-time visualization of data flow and agent communication via the Neural Dashboard.
+                        </p>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-full"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Specialized Agents -->
+<section class="px-6 lg:px-24 py-24 relative">
+<div class="flex flex-col lg:flex-row gap-16 items-start">
+<div class="lg:sticky lg:top-32 max-w-sm">
+<h2 class="font-headline text-5xl font-bold mb-6">Specialized <br/> <span class="text-secondary">Agents</span></h2>
+<p class="text-on-surface-variant mb-8">Deploy pre-trained specialized models optimized for specific domains in your synthetic workforce.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg border-l-2 border-primary">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<span class="font-headline text-sm font-medium">Auto-scaling Infrastructure</span>
+</div>
+<div class="flex items-center gap-3 p-3 hover:bg-white/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-slate-400">shield_lock</span>
+<span class="font-headline text-sm font-medium">Compliance-first Design</span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Backend Agent -->
+<div class="bg-surface-variant/40 p-1 rounded-xl group">
+<div class="bg-surface-container-high p-8 rounded-lg h-full">
+<div class="flex justify-between items-start mb-12">
+<span class="bg-primary-container/20 text-on-primary-container px-3 py-1 rounded text-[10px] uppercase tracking-widest font-bold">System Architect</span>
+<span class="material-symbols-outlined text-primary text-3xl">database</span>
+</div>
+<h4 class="text-xl font-bold mb-2">Backend Agent</h4>
+<p class="text-on-surface-variant text-sm mb-6">Expert in Go, Rust, and distributed architectures. Optimizes for low-latency throughput.</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">GRPC</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">KUBERNETES</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">POSTGRES</span>
+</div>
+</div>
+</div>
+<!-- Frontend Agent -->
+<div class="bg-surface-variant/40 p-1 rounded-xl">
+<div class="bg-surface-container-high p-8 rounded-lg h-full">
+<div class="flex justify-between items-start mb-12">
+<span class="bg-secondary-container/20 text-on-secondary-container px-3 py-1 rounded text-[10px] uppercase tracking-widest font-bold">UX Engineer</span>
+<span class="material-symbols-outlined text-secondary text-3xl">brush</span>
+</div>
+<h4 class="text-xl font-bold mb-2">Frontend Agent</h4>
+<p class="text-on-surface-variant text-sm mb-6">Specializes in React, Swift, and emotive UI components. masters of the visual flow.</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">NEXT.JS</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">TAILWIND</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">GLSL</span>
+</div>
+</div>
+</div>
+<!-- Security Agent -->
+<div class="bg-surface-variant/40 p-1 rounded-xl">
+<div class="bg-surface-container-high p-8 rounded-lg h-full">
+<div class="flex justify-between items-start mb-12">
+<span class="bg-tertiary-container/20 text-on-tertiary-container px-3 py-1 rounded text-[10px] uppercase tracking-widest font-bold">Sentry Alpha</span>
+<span class="material-symbols-outlined text-tertiary text-3xl">policy</span>
+</div>
+<h4 class="text-xl font-bold mb-2">Security Agent</h4>
+<p class="text-on-surface-variant text-sm mb-6">Continuous vulnerability scanning and automated patch orchestration.</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">ZERO TRUST</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">SOC2</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">E2EE</span>
+</div>
+</div>
+</div>
+<!-- Operations Agent -->
+<div class="bg-surface-variant/40 p-1 rounded-xl">
+<div class="bg-surface-container-high p-8 rounded-lg h-full">
+<div class="flex justify-between items-start mb-12">
+<span class="bg-white/10 text-white px-3 py-1 rounded text-[10px] uppercase tracking-widest font-bold">Relay Gamma</span>
+<span class="material-symbols-outlined text-slate-400 text-3xl">insights</span>
+</div>
+<h4 class="text-xl font-bold mb-2">Operations Agent</h4>
+<p class="text-on-surface-variant text-sm mb-6">Manages team coordination, resource allocation, and budget optimization.</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">COST CTL</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">CI/CD</span>
+<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-400">SLO</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="px-6 lg:px-24 py-32 overflow-hidden relative">
+<div class="absolute inset-0 z-0 bg-primary/5 blur-[120px] rounded-full scale-150 translate-y-1/2"></div>
+<div class="relative z-10 glass-panel rounded-3xl p-12 lg:p-24 text-center border border-white/5 overflow-hidden">
+<div class="absolute inset-0 pointer-events-none opacity-20" data-alt="Subtle dark geometric mesh pattern with tiny glowing particles moving along connecting lines">
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD04SL_lUP1ONSN1IgrH8VFeaZG2uvtuzy9wCPCK4KnY8OEX2H9Uz4jlKSeyV2P6qiA1GultJi_2Cl9Iis3-9biX-5wBcTMmC1VlkpDyIlBupLLgurr_4LODVNVpoxf-Ddedk86neuaCbvxQ7UR5Qhi37nxGa9UR29oUVldcsx1G3qe6_0H3jJg3MPa-_VfKvXTyC2j6TMTkS8x1VK7vM7qmnpELSxbgtzOS8QSp3oIkiocuJ6Nzt4OdTQ-_rw9nRlv8JWjlHR7uNak"/>
+</div>
+<div class="relative z-20">
+<h2 class="font-headline text-5xl md:text-7xl font-bold mb-8">Ready to Architect <br/> the <span class="text-primary italic">Future?</span></h2>
+<p class="text-on-surface-variant text-xl max-w-2xl mx-auto mb-12">Join the world's most innovative synthetic architects building the next era of digital intelligence.</p>
+<a href="configuracion_proyecto.html" class="inline-block bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-12 py-5 rounded-md font-headline font-bold text-xl shadow-[0_0_50px_-10px_rgba(58,223,250,0.5)] active:scale-95 transition-all">
+                        Start Building
+                    </a>
+<div class="mt-8 flex justify-center gap-6 text-on-surface-variant font-headline text-xs tracking-widest uppercase">
+<span>Free for solo creators</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full self-center"></span>
+<span>Enterprise scale ready</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full self-center"></span>
+<span>SOC2 Type II</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-12 flex flex-col items-center gap-4 bg-[#060e20] border-t border-white/5 font-['Inter'] text-xs uppercase tracking-[0.2em]">
+<div class="flex gap-12 text-slate-600 font-bold mb-2">
+<a class="hover:text-cyan-300 transition-colors" href="index.html">Home</a>
+<a class="hover:text-cyan-300 transition-colors" href="configuracion_proyecto.html">Configurator</a>
+<a class="hover:text-cyan-300 transition-colors" href="pagina_orquestacion.html">Agents</a>
+</div>
+<div class="text-cyan-400 font-bold text-lg mb-2">Neural Orchestration</div>
+<div class="text-slate-600 text-center">
+            © 2026 Neural Orchestration. Built for the Synthetic Architect.
+        </div>
+</footer>
+</body></html>
